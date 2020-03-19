@@ -28,10 +28,6 @@ class StrokeIMKeyboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        strokeIMKeyboardEditText.setOnTouchListener { _, _ ->
-//            false
-//        }
-//
         strokeIMKeyboardEditText.showSoftInputOnFocus = false
 
         strokeIMKeyboardContainer.setOnTouchListener(object : StrokeIMTouchListener(context!!) {

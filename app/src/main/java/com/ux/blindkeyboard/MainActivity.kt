@@ -16,4 +16,12 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.main_container, MenuFragment())
             .commit()
     }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1)
+            finishAffinity()
+        else
+            super.onBackPressed()
+
+    }
 }
