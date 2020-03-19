@@ -44,6 +44,10 @@ class StrokeIMKeyboardFragment : Fragment() {
                     StrokeIMDirection.LEFT_DOWN -> strokeIMKeyboardEditText.setText("${strokeIMKeyboardEditText.text}9")
                     StrokeIMDirection.RIGHT_UP -> strokeIMKeyboardEditText.setText("${strokeIMKeyboardEditText.text}1")
                     StrokeIMDirection.LEFT_UP -> strokeIMKeyboardEditText.setText("${strokeIMKeyboardEditText.text}3")
+                    StrokeIMDirection.UP_DOWN -> strokeIMKeyboardEditText.setText("${strokeIMKeyboardEditText.text}5")
+                    StrokeIMDirection.DOWN_UP -> strokeIMKeyboardEditText.setText("${strokeIMKeyboardEditText.text}0")
+                    StrokeIMDirection.LEFT_RIGHT-> strokeIMKeyboardEditText.setText("${strokeIMKeyboardEditText.text} ")
+                    StrokeIMDirection.RIGHT_LEFT -> strokeIMKeyboardEditText.setText("${strokeIMKeyboardEditText.text.dropLast(1)}")
 
                 }
             }

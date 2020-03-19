@@ -1,6 +1,7 @@
 package com.ux.blindkeyboard.stroke_im
 
 import android.content.Context
+import android.util.ArraySet
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
@@ -10,17 +11,14 @@ import kotlin.math.sqrt
 
 abstract class StrokeIMTouchListener(context: Context) : View.OnTouchListener {
 
-//    private val gestureDetector: GestureDetector =
-//        GestureDetector(context, StrokeIMGestureListener())
-
     private var startX: Float? = null
     private var startY: Float? = null
     private val touchSlop: Int = ViewConfiguration.get(context).scaledTouchSlop
 
     private var direction: StrokeIMDirection? = null
+    private var directions = LinkedHashSet<StrokeIMDirection>()
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-//        return gestureDetector.onTouchEvent(event)
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 startX = event.x
@@ -35,6 +33,11 @@ abstract class StrokeIMTouchListener(context: Context) : View.OnTouchListener {
                     val y = event.y
 
                     direction = StrokeIMDirection.get(getAngle(startX!!, startY!!, x, y))
+
+                    startX = event.x
+                    startY = event.y
+
+                    directions.add(direction!!)
                 }
                 return true
             }
@@ -43,14 +46,40 @@ abstract class StrokeIMTouchListener(context: Context) : View.OnTouchListener {
                 startX = 0.0f
                 startY = 0.0f
 
+                if (directions.size > 1) {
 
-                if(direction != null)
+                    if (directions.elementAt(0) == StrokeIMDirection.LEFT && directions.elementAt(1) == StrokeIMDirection.RIGHT)
+                        onDirectionDetected(StrokeIMDirection.LEFT_RIGHT)
+                    else if (directions.elementAt(0) == StrokeIMDirection.RIGHT && directions.elementAt(1) == StrokeIMDirection.LEFT)
+                        onDirectionDetected(StrokeIMDirection.RIGHT_LEFT)
+                    else if (directions.elementAt(0) == StrokeIMDirection.UP && directions.elementAt(1) == StrokeIMDirection.DOWN)
+                        onDirectionDetected(StrokeIMDirection.UP_DOWN)
+                    else if (directions.elementAt(0) == StrokeIMDirection.DOWN && directions.elementAt(1) == StrokeIMDirection.UP)
+                        onDirectionDetected(StrokeIMDirection.DOWN_UP)
+                    else {
+                        onDirectionDetected(direction!!)
+                        directions.clear()
+                        return true
+                    }
+
+                    directions.clear()
+                    return true
+
+                } else if (direction != null) {
+
                     onDirectionDetected(direction!!)
-                return true
+                    directions.clear()
+                    return true
+                }
+
+                directions.clear()
+                return false
             }
 
             MotionEvent.ACTION_CANCEL -> {
+                directions.clear()
             }
+
         }
         return false
     }
@@ -69,54 +98,6 @@ abstract class StrokeIMTouchListener(context: Context) : View.OnTouchListener {
         distance += sqrt(dx * dx + dy * dy)
         return distance
     }
-
-//    private inner class StrokeIMGestureListener : GestureDetector.SimpleOnGestureListener() {
-//
-//        private val SWIPE_THRESHOLD = 100
-//        private val SWIPE_VELOCITY_THRESHOLD = 100
-//
-//        override fun onDown(e: MotionEvent?): Boolean {
-//            return true
-//        }
-//
-//        override fun onFling(
-//            e1: MotionEvent?,
-//            e2: MotionEvent?,
-//            velocityX: Float,
-//            velocityY: Float
-//        ): Boolean {
-//            var isResult = false
-//            if (e1 != null && e2 != null)
-//                try {
-//                    val diffY = e2.y - e1.y
-//                    val diffX = e2.x - e1.x
-//
-//                    if (abs(diffX) > abs(diffY)) {
-//                        if (abs(diffX) > SWIPE_THRESHOLD && abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-//                            if (diffX > 0) {
-//                                onSwipeRight()
-//                            } else {
-//                                onSwipeLeft()
-//                            }
-//
-//                            isResult = true
-//                        }
-//                    } else if (abs(diffY) > SWIPE_THRESHOLD && abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-//                        if (diffY > 0) {
-//                            onSwipeDown()
-//                        } else {
-//                            onSwipeUp()
-//                        }
-//
-//                        isResult = true
-//                    }
-//                } catch (e: Exception) {
-//                    Log.w(this::class.java.name, e.message!!)
-//                }
-//
-//            return isResult
-//        }
-//    }
 
     abstract fun onDirectionDetected(direction: StrokeIMDirection)
 }

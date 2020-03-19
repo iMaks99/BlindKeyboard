@@ -8,7 +8,11 @@ enum class StrokeIMDirection {
     LEFT_UP,
     RIGHT_UP,
     LEFT_DOWN,
-    RIGHT_DOWN;
+    RIGHT_DOWN,
+    LEFT_RIGHT,
+    RIGHT_LEFT,
+    UP_DOWN,
+    DOWN_UP;
 
     companion object {
 
