@@ -59,20 +59,24 @@ abstract class StrokeIMTouchListener(context: Context) : View.OnTouchListener {
                     else {
                         onDirectionDetected(direction!!)
                         directions.clear()
+                        direction = null
                         return true
                     }
 
                     directions.clear()
+                    direction = null
                     return true
 
                 } else if (direction != null) {
 
                     onDirectionDetected(direction!!)
+                    direction = null
                     directions.clear()
                     return true
                 }
 
                 directions.clear()
+                direction = null
                 return false
             }
 

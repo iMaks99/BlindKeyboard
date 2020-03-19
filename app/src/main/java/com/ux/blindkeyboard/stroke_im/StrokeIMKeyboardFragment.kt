@@ -28,9 +28,11 @@ class StrokeIMKeyboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        strokeIMKeyboardEditText.setOnTouchListener { _, _ ->
-            false
-        }
+//        strokeIMKeyboardEditText.setOnTouchListener { _, _ ->
+//            false
+//        }
+//
+        strokeIMKeyboardEditText.showSoftInputOnFocus = false
 
         strokeIMKeyboardContainer.setOnTouchListener(object : StrokeIMTouchListener(context!!) {
             override fun onDirectionDetected(direction: StrokeIMDirection) {
@@ -50,6 +52,8 @@ class StrokeIMKeyboardFragment : Fragment() {
                     StrokeIMDirection.RIGHT_LEFT -> strokeIMKeyboardEditText.setText("${strokeIMKeyboardEditText.text.dropLast(1)}")
 
                 }
+
+                strokeIMKeyboardEditText.setSelection(strokeIMKeyboardEditText.text.length)
             }
         })
 
