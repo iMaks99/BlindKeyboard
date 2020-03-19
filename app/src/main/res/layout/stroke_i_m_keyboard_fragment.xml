@@ -7,7 +7,7 @@
     tools:context=".stroke_im.StrokeIMKeyboardFragment">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/strokeIMKeyboardEditText"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -17,13 +17,13 @@
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintBottom_toTopOf="@+id/strokeIMKeyboardContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/strokeIMKeyboardContainer"
         android:layout_width="0dp"
         android:layout_height="250dp"
         android:background="#E8E8E8"

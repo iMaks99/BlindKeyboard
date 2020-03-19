@@ -22,11 +22,11 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        teamKeyboardBtn.setOnClickListener {
+        teamBtn.setOnClickListener {
             //TODO create link to team's keyboard fragment
         }
 
-        strokeIMKeyboardBtn.setOnClickListener {
+        strokeIMBtn.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .addToBackStack(StrokeIMKeyboardFragment::class.java.name)
                 .replace(R.id.main_container, StrokeIMKeyboardFragment.newInstance())
