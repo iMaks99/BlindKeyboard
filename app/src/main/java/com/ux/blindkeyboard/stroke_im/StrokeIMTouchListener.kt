@@ -1,11 +1,11 @@
 package com.ux.blindkeyboard.stroke_im
 
 import android.content.Context
-import android.util.ArraySet
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import kotlin.math.PI
+import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.sqrt
 
@@ -38,11 +38,19 @@ abstract class StrokeIMTouchListener(context: Context) : View.OnTouchListener {
                     startY = event.y
 
                     directions.add(direction!!)
-                }
+
+0                }
+
                 return true
             }
 
             MotionEvent.ACTION_UP -> {
+
+                if (shouldClickActionWork(startX!!, event.x, startY!!, event.y)) {
+                    v?.performClick()
+                    return false
+                }
+
                 startX = 0.0f
                 startY = 0.0f
 
@@ -50,11 +58,20 @@ abstract class StrokeIMTouchListener(context: Context) : View.OnTouchListener {
 
                     if (directions.elementAt(0) == StrokeIMDirection.LEFT && directions.elementAt(1) == StrokeIMDirection.RIGHT)
                         onDirectionDetected(StrokeIMDirection.LEFT_RIGHT)
-                    else if (directions.elementAt(0) == StrokeIMDirection.RIGHT && directions.elementAt(1) == StrokeIMDirection.LEFT)
+                    else if (directions.elementAt(0) == StrokeIMDirection.RIGHT && directions.elementAt(
+                            1
+                        ) == StrokeIMDirection.LEFT
+                    )
                         onDirectionDetected(StrokeIMDirection.RIGHT_LEFT)
-                    else if (directions.elementAt(0) == StrokeIMDirection.UP && directions.elementAt(1) == StrokeIMDirection.DOWN)
+                    else if (directions.elementAt(0) == StrokeIMDirection.UP && directions.elementAt(
+                            1
+                        ) == StrokeIMDirection.DOWN
+                    )
                         onDirectionDetected(StrokeIMDirection.UP_DOWN)
-                    else if (directions.elementAt(0) == StrokeIMDirection.DOWN && directions.elementAt(1) == StrokeIMDirection.UP)
+                    else if (directions.elementAt(0) == StrokeIMDirection.DOWN && directions.elementAt(
+                            1
+                        ) == StrokeIMDirection.UP
+                    )
                         onDirectionDetected(StrokeIMDirection.DOWN_UP)
                     else {
                         onDirectionDetected(direction!!)
@@ -101,6 +118,17 @@ abstract class StrokeIMTouchListener(context: Context) : View.OnTouchListener {
 
         distance += sqrt(dx * dx + dy * dy)
         return distance
+    }
+
+    private fun shouldClickActionWork(
+        startX: Float,
+        endX: Float,
+        startY: Float,
+        endY: Float
+    ): Boolean {
+        val differenceX = abs(startX - endX)
+        val differenceY = abs(startY - endY)
+        return 0.5f > differenceX && 0.5f > differenceY
     }
 
     abstract fun onDirectionDetected(direction: StrokeIMDirection)

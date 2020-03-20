@@ -1,6 +1,60 @@
 <resources>
     <string name="app_name">Blind Keyboard</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="alphabet_up">
+        <item>а</item>
+        <item>б</item>
+        <item>в</item>
+        <item>г</item>
+    </string-array>
+
+    <string-array name="alphabet_up_right">
+        <item>д</item>
+        <item>е</item>
+        <item>ж</item>
+        <item>з</item>
+    </string-array>
+
+    <string-array name="alphabet_up_left">
+        <item>м</item>
+        <item>н</item>
+        <item>о</item>
+        <item>п</item>
+    </string-array>
+
+    <string-array name="alphabet_right">
+        <item>р</item>
+        <item>с</item>
+        <item>тв</item>
+        <item>у</item>
+    </string-array>
+
+    <string-array name="alphabet_left">
+        <item>и</item>
+        <item>й</item>
+        <item>к</item>
+        <item>л</item>
+    </string-array>
+
+    <string-array name="alphabet_down">
+        <item>ш</item>
+        <item>щ</item>
+        <item>ъ</item>
+        <item>ы</item>
+    </string-array>
+
+    <string-array name="alphabet_down_left">
+        <item>ф</item>
+        <item>х</item>
+        <item>ц</item>
+        <item>ч</item>
+    </string-array>
+
+    <string-array name="alphabet_down_right">
+        <item>ь</item>
+        <item>э</item>
+        <item>ю</item>
+        <item>я</item>
+    </string-array>
+
 </resources>
