@@ -1,9 +1,8 @@
 package com.ux.blindkeyboard
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.ux.blindkeyboard.menu.MenuFragment
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  *
